@@ -32,7 +32,7 @@
 #define SEEK_SET    0
 #endif
 
-voidpf call_zopen64(const zlib_filefunc64_32_def* pfilefunc, voidpf file, int mode)
+voidpf quazip_call_zopen64(const zlib_filefunc64_32_def* pfilefunc, voidpf file, int mode)
 {
     auto func = pfilefunc->zfile_func64.zopen64_file != nullptr
         ? pfilefunc->zfile_func64.zopen64_file
@@ -58,7 +58,7 @@ int zseek32(const zlib_filefunc64_32_def* pfilefunc, voidpf filestream, ZPOS64_T
 
 }
 
-int call_zseek64(const zlib_filefunc64_32_def* pfilefunc, voidpf filestream, ZPOS64_T offset, int origin)
+int quazip_call_zseek64(const zlib_filefunc64_32_def* pfilefunc, voidpf filestream, ZPOS64_T offset, int origin)
 {
     auto func = pfilefunc->zfile_func64.zseek64_file != nullptr ? zseek64 : zseek32;
     return (*func)(pfilefunc, filestream, offset, origin);
@@ -82,7 +82,7 @@ ZPOS64_T ztell32(const zlib_filefunc64_32_def* pfilefunc, voidpf filestream)
 
 }
 
-ZPOS64_T call_ztell64(const zlib_filefunc64_32_def* pfilefunc, voidpf filestream)
+ZPOS64_T quazip_call_ztell64(const zlib_filefunc64_32_def* pfilefunc, voidpf filestream)
 {
     auto *func = pfilefunc->zfile_func64.zseek64_file != nullptr ? ztell64 : ztell32;
     return (*func)(pfilefunc, filestream);
@@ -339,7 +339,7 @@ void fill_qiodevice64_filefunc (
     pzlib_filefunc_def->zfakeclose_file = qiodevice_fakeclose_file_func;
 }
 
-void fill_zlib_filefunc64_32_def_from_filefunc32(zlib_filefunc64_32_def* p_filefunc64_32,const zlib_filefunc_def* p_filefunc32)
+void quazip_fill_zlib_filefunc64_32_def_from_filefunc32(zlib_filefunc64_32_def* p_filefunc64_32,const zlib_filefunc_def* p_filefunc32)
 {
     p_filefunc64_32->zfile_func64.zopen64_file = nullptr;
     p_filefunc64_32->zopen32_file = p_filefunc32->zopen_file;
