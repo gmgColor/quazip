@@ -190,15 +190,15 @@ typedef struct zlib_filefunc64_32_def_s
 #define ZFAKECLOSE64(filefunc,filestream)             ((*((filefunc).zfile_func64.zfakeclose_file))  ((filefunc).zfile_func64.opaque,filestream))
 #define ZERROR64(filefunc,filestream)             ((*((filefunc).zfile_func64.zerror_file))  ((filefunc).zfile_func64.opaque,filestream))
 
-voidpf call_zopen64 OF((const zlib_filefunc64_32_def* pfilefunc,voidpf file,int mode));
-int    call_zseek64 OF((const zlib_filefunc64_32_def* pfilefunc,voidpf filestream, ZPOS64_T offset, int origin));
-ZPOS64_T call_ztell64 OF((const zlib_filefunc64_32_def* pfilefunc,voidpf filestream));
+voidpf quazip_call_zopen64 OF((const zlib_filefunc64_32_def* pfilefunc,voidpf file,int mode));
+int    quazip_call_zseek64 OF((const zlib_filefunc64_32_def* pfilefunc,voidpf filestream, ZPOS64_T offset, int origin));
+ZPOS64_T quazip_call_ztell64 OF((const zlib_filefunc64_32_def* pfilefunc,voidpf filestream));
 
-void    fill_zlib_filefunc64_32_def_from_filefunc32(zlib_filefunc64_32_def* p_filefunc64_32,const zlib_filefunc_def* p_filefunc32);
+void    quazip_fill_zlib_filefunc64_32_def_from_filefunc32(zlib_filefunc64_32_def* p_filefunc64_32,const zlib_filefunc_def* p_filefunc32);
 
-#define ZOPEN64(filefunc,filename,mode)         (call_zopen64((&(filefunc)),(filename),(mode)))
-#define ZTELL64(filefunc,filestream)            (call_ztell64((&(filefunc)),(filestream)))
-#define ZSEEK64(filefunc,filestream,pos,mode)   (call_zseek64((&(filefunc)),(filestream),(pos),(mode)))
+#define ZOPEN64(filefunc,filename,mode)         (quazip_call_zopen64((&(filefunc)),(filename),(mode)))
+#define ZTELL64(filefunc,filestream)            (quazip_call_ztell64((&(filefunc)),(filestream)))
+#define ZSEEK64(filefunc,filestream,pos,mode)   (quazip_call_zseek64((&(filefunc)),(filestream),(pos),(mode)))
 
 #ifdef __cplusplus
 }
